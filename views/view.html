@@ -1,5 +1,60 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>THE_PRODUCT_NAME</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.classless.min.css"
+    />
+  </head>
+
   <body>
-    View
+    <main>
+      <section>
+        <figure>
+          <iframe
+            src="iframe.html"
+            width="60%"
+            height="300em"
+            style="position: relative; left: 20%"
+          >
+          </iframe>
+        </figure>
+      </section>
+
+      <section id="container">
+        <article>
+          <p>
+            <strong><big>pgmInfo.name</big></strong>
+          </p>
+          <footer>
+            <small><small>pgmInfo.description</small></small>
+          </footer>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const container = document.getElementById("container");
+
+      fetch("/getAllPgms")
+        .then((response) => response.json())
+        .then((array) => {
+          array.forEach((pgmInfo) => {
+            container.insertAdjacentHTML(
+              "beforeend",
+              "<article><p><strong><big>" +
+                pgmInfo.name +
+                "</big></strong></p><footer><small><small>" +
+                pgmInfo.description +
+                "</small></small></footer></article>"
+            );
+          });
+        });
+    </script>
   </body>
 </html>

@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const mongoose = require("mongoose");
+const connectDB = require(path.join(__dirname, "config", "mongoConnect"));
 const PORT = process.env.PORT || 3000;
+
+connectDB();
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -25,6 +29,10 @@ app.all("*", (req, res) => {
 
 app.use(require(path.join(__dirname, "middleware", "errorHandler.js")));
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 });
