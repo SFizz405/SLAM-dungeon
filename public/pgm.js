@@ -15,7 +15,7 @@ const handleJSON = (json) => {
     name.name = "name";
 
     description.type = "text";
-    description.name = "name";
+    description.name = "description";
 
     document.body.appendChild(threeJS);
     form.prepend(description);
