@@ -34,7 +34,9 @@
             </p>
             <div style="margin-left: auto">
               <button>プレビュー</button>
-              <button>プレビュー</button>
+              &emsp;&emsp;&emsp;
+              <button>.obj</button>
+              <button>.json</button>
             </div>
           </div>
           <footer>
@@ -53,9 +55,10 @@
           array.forEach((pgmInfo) => {
             container.insertAdjacentHTML(
               "beforeend",
-              "<article><p><strong><big>" +
+              "<article><div style='display: flex'><p><strong><big>" +
                 pgmInfo.name +
-                "</big></strong></p><footer><small><small>" +
+                "</big></strong></p><div style='margin-left: auto'><button>プレビュー</button>&emsp;&emsp;&emsp;" +
+                "<button>.obj</button>&ensp;<button>.json</button></div></div><footer><small><small>" +
                 pgmInfo.description +
                 "</small></small></footer></article>"
             );
