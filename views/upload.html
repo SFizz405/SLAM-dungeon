@@ -1,5 +1,16 @@
-<html>
+<!DOCTYPE html>
+<html style="height: 100%">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>LiDARゲームメーカー</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css"
+    />
+
     <script type="importmap">
       {
         "imports": {
@@ -10,10 +21,40 @@
     </script>
   </head>
 
-  <body>
-    <form id="form" method="post" enctype="multipart/form-data">
-      <input id="input" type="file" name="pgm" required />
-      <button id="submit" type="button">確認</button>
+  <body
+    style="
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <form
+      id="form"
+      method="post"
+      enctype="multipart/form-data"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      "
+    >
+      <label id="uploadIcon" for="input" style="width: 60%">
+        <img
+          src="https://cdn.glitch.global/ad4f6e5d-b162-4229-aab9-550b8d8360b4/upload.png?v=1711171390928"
+        />
+      </label>
+
+      <input id="input" type="file" name="pgm" style="display: none" required />
+
+      <div style="height: 0.5vw"></div>
+      <label for="input"><p id="filename">ファイルを選択してください</p></label>
+      <div style="height: 1.5vw"></div>
+
+      <button id="submit" type="button" class="outline" style="font-size: 1vw">
+        確認
+      </button>
     </form>
   </body>
 

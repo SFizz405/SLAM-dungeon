@@ -13,8 +13,8 @@ if (savedData) {
   sessionStorage.removeItem("savedPgmObject");
 }
 
-window.addEventListener("message", (e) => {
-  sessionStorage.setItem("savedPgmObject", JSON.stringify(e.data));
+window.addEventListener("message", (event) => {
+  sessionStorage.setItem("savedPgmObject", JSON.stringify(event.data));
 
   window.location.reload();
 });

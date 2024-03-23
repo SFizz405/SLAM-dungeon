@@ -111,7 +111,11 @@ function animate() {
 
 animate();
 
-renderer.domElement.addEventListener("click", () => controls.lock());
+document.body.addEventListener("click", () => controls.lock());
+document.getElementById("form").addEventListener("click", (event) => {
+  controls.unlock();
+  event.stopImmediatePropagation();
+});
 
 document.addEventListener("keydown", onKeyDown);
 document.addEventListener("keyup", onKeyUp);
