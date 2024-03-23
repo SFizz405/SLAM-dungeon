@@ -1,7 +1,12 @@
-/*window.setIFrame = false;
+window.addEventListener("message", (e) => {
+  document.body.innerHTML = "";
 
-setInterval(() => {
-  if (parent.pgmInfo && !window.setIFrame) {
-    window.setIFrame = true;
-  } else if (!parent.pgmInfo) {}
-}, 100);*/
+  const threeJS = document.createElement("script");
+
+  threeJS.src = "preview.js";
+  threeJS.type = "module";
+
+  document.body.appendChild(threeJS);
+
+  window.pgmObject = e.data;
+});

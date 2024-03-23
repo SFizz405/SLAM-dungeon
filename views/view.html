@@ -1,68 +1,91 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" style="height: 100%">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <title>THE_PRODUCT_NAME</title>
+    <title>LiDARゲームメーカー</title>
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.classless.min.css"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css"
     />
   </head>
 
-  <body>
-    <main>
-      <section>
-        <figure>
-          <iframe
-            src="iframe.html"
-            width="60%"
-            height="300em"
-            style="position: relative; left: 20%"
-          >
-          </iframe>
-        </figure>
+  <body style="height: 100%">
+    <main style="height: 100%; width: 80%; margin-left: 10%">
+      <section style="height: 40%">
+        <iframe
+          id="iframe"
+          src="iframe.html"
+          width="50%"
+          height="100%"
+          style="position: relative; left: 25%"
+        >
+        </iframe>
       </section>
 
-      <section id="container">
-        <article>
-          <div style="display: flex">
-            <p>
-              <strong><big>pgmInfo.name</big></strong>
-            </p>
-            <div style="margin-left: auto">
-              <button>プレビュー</button>
-              &emsp;&emsp;&emsp;
-              <button>.obj</button>
-              <button>.json</button>
-            </div>
-          </div>
-          <footer>
-            <small><small>pgmInfo.description</small></small>
-          </footer>
-        </article>
+      <section
+        style="
+          height: 50%;
+          margin-top: 5%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <div style="width: 20%"><button>新規タブで表示</button></div>
+        <div
+          id="container"
+          style="
+            width: 30%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+          "
+        ></div>
+        <div style="width: 20%">
+          <button>.obj</button>&ensp;<button>.json</button>
+        </div>
       </section>
     </main>
 
     <script>
       const container = document.getElementById("container");
+      const iframe = document.getElementById("iframe");
 
       fetch("/getAllPgms")
         .then((response) => response.json())
         .then((array) => {
           array.forEach((pgmInfo) => {
-            container.insertAdjacentHTML(
-              "beforeend",
-              "<article><div style='display: flex'><p><strong><big>" +
-                pgmInfo.name +
-                "</big></strong></p><div style='margin-left: auto'><button>プレビュー</button>&emsp;&emsp;&emsp;" +
-                "<button>.obj</button>&ensp;<button>.json</button></div></div><footer><small><small>" +
-                pgmInfo.description +
-                "</small></small></footer></article>"
-            );
+            const button = document.createElement("button");
+
+            button.classList.add("outline");
+            button.classList.add("secondary");
+
+            button.style.marginTop = "1%";
+            button.style.marginBottom = "1%";
+            button.style.width = "100%";
+            button.style.height = "2.5vw";
+            button.style.lineHeight = "0";
+            button.style.fontSize = "1vw";
+            button.style.color = "white";
+
+            button.textContent = pgmInfo.name;
+            button.title = pgmInfo.description;
+
+            button.pgmObject = pgmInfo.data;
+
+            button.onclick = function () {
+              iframe.contentWindow.postMessage(this.pgmObject);
+            };
+
+            container.appendChild(button);
           });
+
+          iframe.contentWindow.postMessage(container.lastChild.pgmObject);
         });
     </script>
   </body>
