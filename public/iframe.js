@@ -1,5 +1,7 @@
-window.addEventListener("message", (e) => {
-  document.body.innerHTML = "";
+const savedData = sessionStorage.getItem("savedPgmObject");
+
+if (savedData) {
+  window.pgmObject = JSON.parse(savedData);
 
   const threeJS = document.createElement("script");
 
@@ -8,5 +10,11 @@ window.addEventListener("message", (e) => {
 
   document.body.appendChild(threeJS);
 
-  window.pgmObject = e.data;
+  sessionStorage.removeItem("savedPgmObject");
+}
+
+window.addEventListener("message", (e) => {
+  sessionStorage.setItem("savedPgmObject", JSON.stringify(e.data));
+
+  window.location.reload();
 });
